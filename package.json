@@ -1,0 +1,12 @@
+{
+  "name": "draft",
+  "version": "1.0.0",
+  "description": "A drawing interface using @vislite/canvas",
+  "scripts": {
+    "start": "oipage-cli serve -p 3000"
+  },
+  "dependencies": {
+    "@vislite/canvas": "^1.1.0",
+    "oipage": "^1.7.0"
+  }
+}
