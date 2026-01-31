@@ -1,3 +1,9 @@
-<div class="app-view">
-    <div id="root"></div>
+<div class="drawing-app">
+    <div class="toolbar">
+        <label>颜色 <input type="color" id="color" z-on:change="colorInput" value="#000000"></label>
+        <label>笔刷 <input type="range" id="size" min="1" max="50" z-on:change="sizeInput" value="4"></label>
+        <button id="clear" z-on:click="clear">清空</button>
+        <button id="save" z-on:click="download">保存</button>
+    </div>
+    <div id="canvas-wrap"></div>
 </div>
