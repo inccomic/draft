@@ -2,7 +2,7 @@ import { defineElement } from "zipaper"
 import template from "./index.html"
 import style from "./index.scss"
 
-import { Canvas } from "vislite"
+import { Canvas, throttle } from "vislite"
 
 let painter
 export default defineElement({
@@ -24,14 +24,36 @@ export default defineElement({
                 link.click()
             });
         },
-        colorInput(event){
+        colorInput(event) {
             painter.config({ strokeStyle: event.target.value })
         },
-        sizeInput(event){
+        sizeInput(event) {
             painter.config({ lineWidth: event.target.value })
         }
     },
     created() {
+
+        window.onresize = throttle(() => {
+
+            let info = painter.getInfo()
+
+            painter.toDataURL().then(dataURL => {
+
+                painter = new Canvas(document.getElementById('canvas-wrap'), {})
+
+                const colorInput = document.getElementById('color')
+                const sizeInput = document.getElementById('size')
+
+                // 初始化配置
+                painter.config({
+                    strokeStyle: colorInput.value,
+                    lineWidth: sizeInput.value
+                })
+
+                painter.drawImage(dataURL, 0, 0, info.width, info.height)
+            })
+        })
+
         painter = new Canvas(document.getElementById('canvas-wrap'))
 
         const colorInput = document.getElementById('color')
